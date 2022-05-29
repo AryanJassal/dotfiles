@@ -1,0 +1,279 @@
+#
+#                                     .                            
+#                                  .!?J?7:                         
+#                                  ~YYJYYJ                     
+#                                  .!?JJ?^                     
+#                                    ...   ~777~.              
+#                          ^!77~          !YYJYYJ!:            
+#                         !YYYYY7         :?YJJJJYJ7:          
+#                         ^JJYJJ~           ^?JYJJJYJ7^        
+#                          .:^:.  :~!~:       ^7JYJJJYY?^      
+#                 :~~^.          !YYYYJ7:       :7JYJJJJY?^    
+#                !JYYYJ^         !YYJJJYJ7^       :!JYJJJJY7   
+#                7YYYYY~          :7JYJJJYY?^.      .!JJJJJY7  
+#                 ^~!~:  .:::       :!JYJJJJY?~.      ~JJJJJY~ 
+#                       !JJJJ?^       .!JYJJJJYJ~      ?JJJJY? 
+#                      .?YJJJJY?~.      .~?YYYYY7      7YJJJJ? 
+#                       .!JYJJJJYJ!.      .^777~.     :JJJJJY! 
+#                         .~JYJJJJYJ!:               :?JJJJJJ. 
+#                           .~?YJJJJYJ7:           :!JJJJJYJ^  
+#                              ^?JYJJJYJ?7~^^^^^~7?JYJJJJY?:   
+#                                ^7JYYJJJYYYJJJYYYJJJJYJ?^     
+#                                  :~7JJYYYYYYYYYYYJJ?!:       
+#                                     .:^~!77777!!~:.          
+#                                                                                
+#                                                                                
+
+# Useful variables
+set $term kitty
+
+# Set the Mod key (Mod4 for Win key and Mod1 for Alt key)
+set $mod Mod4
+
+# Set the font to Ubuntu, size 11
+font pango:Ubuntu Regular 11
+
+# Multimonitor setup for home PC
+exec xrandr --output DP-0 --mode 2560x1440 --rate 144.00 --primary --output HDMI-0 --mode 1920x1080 --rate 74.97 --right-of DP-0
+
+# xrandr setup for laptop config
+# exec xrandr --output HDMI1 --mode 2560x1440 --rate 144.00 --output eDP1 --mode 1920x1080 --rate 59.90
+exec xrandr --output eDP1 --mode 1920x1080 --pos 2560x360 --rotate normal --output DP1 --off --output DP2 --off --output HDMI1 --primary --mode 2560x1440 --pos 0x0 --rotate normal --output VIRTUAL1 --off
+
+# Start up i3wm
+exec --no-startup-id dex --autostart --environment i3
+
+# Set default border
+default_border none
+default_floating_border none
+
+# set border radius
+border_radius 7
+
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status killall -SIGUSR1 i3status
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86AudioNext exec --no-startup-id playerctl next
+bindsym XF86AudioPrev exec --no-startup-id playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id playerctl play
+bindsym XF86AudioStop exec --no-startup-id playerctl pause
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +2%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 2-%
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# Start a terminal
+bindsym $mod+Return exec $term
+bindsym Menu exec $term
+
+# Kill focused window
+bindsym $mod+Escape kill
+
+# Run ROFI
+bindsym Mod1+space exec rofi -show drun
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+f floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+a focus parent
+
+# Define names for default workspaces for which we configure key bindings later on.
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+# switch to workspace
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+mode "exit: [l]ogout, [r]eboot, [s]hutdown" {
+  bindsym l exec i3-msg exit
+  bindsym r exec systemctl reboot
+  bindsym s exec systemctl shutdown
+
+  bindsym Escape mode "default"
+  bindsym Return mode "default"
+}
+
+bindsym $mod+Shift+e mode "exit: [l]ogout, [r]eboot, [s]hutdown"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym j resize shrink width 20 px or 2 ppt
+        bindsym k resize grow height 20 px or 2 ppt
+        bindsym l resize shrink height 20 px or 2 ppt
+        bindsym semicolon resize grow width 20 px or 2 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 20 px or 2 ppt
+        bindsym Down resize grow height 20 px or 2 ppt
+        bindsym Up resize shrink height 20 px or 2 ppt
+        bindsym Right resize grow width 20 px or 2 ppt
+
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym Ctrl+j resize shrink width 40 px or 4 ppt
+        bindsym Ctrl+k resize grow height 40 px or 4 ppt
+        bindsym Ctrl+l resize shrink height 40 px or 4 ppt
+        bindsym Ctrl+semicolon resize grow width 40 px or 4 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Ctrl+Left resize shrink width 40 px or 4 ppt
+        bindsym Ctrl+Down resize grow height 40 px or 4 ppt
+        bindsym Ctrl+Up resize shrink height 40 px or 4 ppt
+        bindsym Ctrl+Right resize grow width 40 px or 4 ppt
+
+
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# set different wallpapers using modes
+mode "wallpaper" {
+  bindsym 1 exec --no-startup-id source ~/.config/i3/scripts/set_wallpaper.sh ~/wallpapers/lofi-cafe-night-art-4k.jpg; mode "default"
+  bindsym 2 exec --no-startup-id ~/.config/i3/scripts/set_video_wallpaper.sh ~/wallpapers/in-the-clouds-visualdon-downscaled.mp4; mode "default"
+  bindsym 3 exec --no-startup-id source ~/.config/i3/scripts/set_wallpaper.sh ~/wallpapers/half-planet-black.jpg; mode "default"
+
+  bindsym r exec --no-startup-id feh --bg-fill --randomize ~/wallpapers/*
+  
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+
+bindsym $mod+Tab mode "wallpaper"
+
+mode "brightness" {
+    bindsym 1 exec --no-startup-id brightnessctl set 10%; mode "default"
+    bindsym 2 exec --no-startup-id brightnessctl set 20%; mode "default"
+    bindsym 3 exec --no-startup-id brightnessctl set 30%; mode "default"
+    bindsym 4 exec --no-startup-id brightnessctl set 40%; mode "default"
+    bindsym 5 exec --no-startup-id brightnessctl set 50%; mode "default"
+    bindsym 6 exec --no-startup-id brightnessctl set 60%; mode "default"
+    bindsym 7 exec --no-startup-id brightnessctl set 70%; mode "default"
+    bindsym 8 exec --no-startup-id brightnessctl set 80%; mode "default"
+    bindsym 9 exec --no-startup-id brightnessctl set 90%; mode "default"
+    bindsym 0 exec --no-startup-id brightnessctl set 100%; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+b mode "brightness"
+
+mode "polybar" {
+    bindsym 1 exec --no-startup-id ~/.config/polybar/launch.sh "low-density"; mode "default"
+    bindsym 2 exec --no-startup-id ~/.config/polybar/launch.sh "high-density"; mode "default"
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "polybar"
+
+# Set up gaps
+gaps inner 15
+gaps outer 5
+
+# Set default wallpaper
+exec --no-startup-id xwinwrap -ov -ni -fs -- mpv -wid WID --keepaspect=no --loop ~/wallpapers/in-the-clouds-visualdon-downscaled.mp4
+
+# set some padding in the title bars
+for_window [class=".*"] title_format "    %title"
+
+# set some keybinds
+bindsym $mod+x exec light-locker-command -l
+bindsym Print exec flameshot gui
+
+# run startup applications
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh "low-density"
+exec_always --no-startup-id light-locker
+exec_always --no-startup-id fcitx5 --replace -d
+exec_always picom -f -b
+exec --no-startup-id dunst
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec libinput-gestures-setup start
