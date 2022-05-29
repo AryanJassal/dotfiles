@@ -1,0 +1,9 @@
+setup dotfiles in the proper, .config replace manner
+[***] get scrollable brightness adjusting working
+[***] somehow get silding animations in i3 on workspace change
+[***] deal with nmtui ugliness
+clean up .zshrc
+[***] fix neovide random crash
+get white mode images for udemy, heroku and notion and put them in nighttab
+get i3 mode to control audio play/pause among other things
+[***] fix visuals in discord simplify theme
