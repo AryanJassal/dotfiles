@@ -1,8 +1,7 @@
 #!/bin/bash
 
-while [ `pidof -x "mpv" >/dev/null | wc -l` > 0 ]
-do
+if ! pidof -x "mpv" >/dev/null; then
   killall mpv
-done
+fi
 
 xwinwrap -ov -ni -fs -- mpv -wid WID --keepaspect=no --loop $1

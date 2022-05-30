@@ -1,8 +1,7 @@
 #!/bin/bash
 
-while [ `pidof -x "mpv" >/dev/null | wc -l` > 0 ]
-do
-  killall mpv
-done
+# if ! pidof -x "mpv" >/dev/null
+killall mpv
+# fi
 
 feh --bg-fill $1
