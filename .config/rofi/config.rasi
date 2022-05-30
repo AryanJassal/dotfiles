@@ -1,2 +1,2 @@
-//@theme "nord"
-@theme "/home/aryanj/.local/share/rofi/themes/squared-nord.rasi"
+// @theme "/home/aryanj/.local/share/rofi/themes/squared-nord.rasi"
+@theme "themes/tokyonight.rasi"
